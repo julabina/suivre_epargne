@@ -1,0 +1,29 @@
+@import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+@import "@fortawesome/fontawesome-free/css/solid.min.css";
+@import "@fortawesome/fontawesome-free/css/brands.min.css";
+@import "@fortawesome/fontawesome-free/css/regular.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Fredoka+One&family=Roboto:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+}
+
+@layer components {
+    .text-error {
+        @apply text-red-600 text-sm mt-2;
+    }
+
+    .title {
+        @apply text-2xl font-bold;
+    }
+
+    .btn-primary {
+        @apply bg-primary text-white text-base font-semibold rounded-sm py-4 uppercase cursor-pointer transition-opacity hover:transition-opacity hover:opacity-80;
+    }
+}
