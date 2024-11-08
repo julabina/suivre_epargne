@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
+use Database\Factories\ProjectFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * @use HasFactory<ProjectFactory>
- */
 class Project extends Model
 {
+    /** @use HasFactory<ProjectFactory> */
     use HasFactory;
+
     use SoftDeletes;
 
     protected $fillable = [
@@ -26,7 +26,7 @@ class Project extends Model
     ];
 
     /**
-     * @return BelongsTo<User, Project>
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -34,7 +34,7 @@ class Project extends Model
     }
 
     /**
-     * @return BelongsTo<Location, Project>
+     * @return BelongsTo<Location, $this>
      */
     public function location(): BelongsTo
     {
@@ -42,7 +42,7 @@ class Project extends Model
     }
 
     /**
-     * @return HasMany<Transaction>
+     * @return HasMany<Transaction, $this>
      */
     public function transactions(): HasMany
     {

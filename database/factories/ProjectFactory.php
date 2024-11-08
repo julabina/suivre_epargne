@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Location;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory()->create(),
+            'title' => 'Mon projet',
+            'goal_amount' => rand(500, 5000),
+            'location_id' => Location::factory()->create(),
         ];
     }
 }
