@@ -13,14 +13,14 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-            <nav
+            <!-- <nav
                 class="border-b border-gray-100 bg-white"
             >
-                <!-- Primary Navigation Menu -->
+                //Primary Navigation Menu
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex h-16 justify-between">
                         <div class="flex">
-                            <!-- Logo -->
+                            //Logo
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('project.list')">
                                     <ApplicationLogo
@@ -29,21 +29,11 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                             </div>
 
-                            <!-- Navigation Links -->
-                            <div
-                                class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
-                            >
-                                <NavLink
-                                    :href="route('project.list')"
-                                    :active="route().current('project.list')"
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div>
+                           
                         </div>
 
                         <div class="hidden sm:ms-6 sm:flex sm:items-center">
-                            <!-- Settings Dropdown -->
+                            //Settings Dropdown
                             <div class="relative ms-3">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
@@ -88,7 +78,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
 
-                        <!-- Hamburger -->
+                        //Hamburger
                         <div class="-me-2 flex items-center sm:hidden">
                             <button
                                 @click="
@@ -131,7 +121,7 @@ const showingNavigationDropdown = ref(false);
                     </div>
                 </div>
 
-                <!-- Responsive Navigation Menu -->
+                //Responsive Navigation Menu
                 <div
                     :class="{
                         block: showingNavigationDropdown,
@@ -148,7 +138,7 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                     </div>
 
-                    <!-- Responsive Settings Options -->
+                    //Responsive Settings Options
                     <div
                         class="border-t border-gray-200 pb-1 pt-4"
                     >
@@ -177,7 +167,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav> -->
 
             <!-- Page Heading -->
             <header

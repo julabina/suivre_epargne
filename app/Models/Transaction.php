@@ -26,7 +26,7 @@ class Transaction extends Model
     /** @use HasFactory<TransactionFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $table = 'Transaction';
+    protected $table = 'transactions';
 
     protected $fillable = [
         'project_id',
