@@ -13,7 +13,7 @@ const form = useForm({
     password_confirmation: '',
 });
 
-const submit = () => {
+const submit = () => {    
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
