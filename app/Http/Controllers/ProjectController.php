@@ -14,7 +14,7 @@ class ProjectController extends Controller
 {
     public function list(Request $request): Response
     {
-        $projects = Project::where('user_id', $request->user()->id)->get();
+        $projects = Project::where('user_id', $request->user()->id)->with('transactions')->get();
 
         return Inertia::render('Project/List', [
             'projects' => $projects
