@@ -28,6 +28,21 @@ test('create project page is displayed', function () {
     $response->assertOk();
 });
 
+test('show project page is displayed', function () {
+    $user = User::factory()->create();
+
+    $project = Project::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $response = actingAs($user)
+        ->get(
+            uri: route('project.show', ['id' => $project->id]),
+        );
+
+    $response->assertOk();
+});
+
 it('can store project', function () {
     $user = User::factory()->create();
 

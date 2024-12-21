@@ -26,7 +26,18 @@ class ProjectController extends Controller
         return Inertia::render('Project/Create');
     }
 
-    public function show(): void {}
+    public function show(int $id, Request $request): Response|RedirectResponse
+    {
+        $project = Project::where('user_id', $request->user()->id)->where('id', $id)->with('transactions')->first();
+
+        if ($project) {
+            return Inertia::render('Project/Show', [
+                'project' => $project,
+            ]);
+        }
+
+        return back();
+    }
 
     public function store(StoreProjectRequest $request): RedirectResponse
     {

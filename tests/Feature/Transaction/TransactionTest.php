@@ -3,8 +3,8 @@
 namespace Tests\Feature\Project;
 
 use App\Models\Project;
-use App\Models\User;
 use App\Models\Transaction;
+use App\Models\User;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
@@ -14,7 +14,7 @@ it('can add fund for first time', function () {
 
     $project = Project::factory()->create([
         'goal_amount' => 1000,
-        'user_id' => $user->id
+        'user_id' => $user->id,
     ]);
 
     $form = [
@@ -27,7 +27,7 @@ it('can add fund for first time', function () {
             uri: route('transaction.add', ['id' => $project->id]),
             data: [
                 'form' => $form,
-                'type' => 'deposit'
+                'type' => 'deposit',
             ]
         );
 
@@ -51,13 +51,13 @@ it('can add fund', function () {
     $project = Project::factory()->create([
         'goal_amount' => 1000,
         'user_id' => $user->id,
-        'spared' => $amountVal
+        'spared' => $amountVal,
     ]);
 
     $t1 = Transaction::factory()->create([
         'project_id' => $project->id,
         'type' => 'deposit',
-        'amount' => $amountVal
+        'amount' => $amountVal,
     ]);
 
     $form = [
@@ -70,13 +70,13 @@ it('can add fund', function () {
             uri: route('transaction.add', ['id' => $project->id]),
             data: [
                 'form' => $form,
-                'type' => 'deposit'
+                'type' => 'deposit',
             ]
         );
 
     assertDatabaseCount('transactions', 2);
 
-    $transaction = Transaction::orderBy('id','desc')->get();
+    $transaction = Transaction::orderBy('id', 'desc')->get();
     $p = Project::first();
 
     $response->assertRedirectToRoute('project.list');
@@ -95,13 +95,13 @@ it('can remove fund', function () {
     $project = Project::factory()->create([
         'goal_amount' => 1000,
         'user_id' => $user->id,
-        'spared' => $amountVal
+        'spared' => $amountVal,
     ]);
 
     $t1 = Transaction::factory()->create([
         'project_id' => $project->id,
         'type' => 'deposit',
-        'amount' => $amountVal
+        'amount' => $amountVal,
     ]);
 
     $form = [
@@ -114,13 +114,13 @@ it('can remove fund', function () {
             uri: route('transaction.add', ['id' => $project->id]),
             data: [
                 'form' => $form,
-                'type' => 'withdrawal'
+                'type' => 'withdrawal',
             ]
         );
 
     assertDatabaseCount('transactions', 2);
 
-    $transaction = Transaction::orderBy('id','desc')->get();
+    $transaction = Transaction::orderBy('id', 'desc')->get();
     $p = Project::first();
 
     $response->assertRedirectToRoute('project.list');

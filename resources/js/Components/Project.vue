@@ -12,6 +12,9 @@
         </div>
         <p v-if="dateExpired">échéance expirée</p>
         <div v-else class="">
+            <Link :href="route('project.show', { 'id' : data.id })">
+                <input type="button" value="Voir" class="border p-2 bg-blue-400">
+            </Link>
             <input @click="toggleAddFundsModal = true" type="button" value="Ajouter des fonds" class="border p-2 bg-blue-400">
             <input v-if="spared > 0" @click="toggleRemoveFundsModal = true" type="button" value="Retirer des fonds" class="border p-2 bg-blue-400">
         </div>
@@ -24,6 +27,7 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import ModalHandleFunds from '@/Components/ModalHandleFunds.vue';
+    import { Link } from '@inertiajs/vue3';
 
     const props = defineProps({
         data: Object
