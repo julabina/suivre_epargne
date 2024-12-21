@@ -30,14 +30,13 @@ class ProjectController extends Controller
 
     public function store(StoreProjectRequest $request): RedirectResponse
     {
-
         $deadlineDate = null;
 
         if ($request->form['toggleCustomLocation'] && $request->form['customLocation'] !== null && $request->form['customLocation'] !== '') {
             $loca = $request->form['customLocation'];
         } else {
             $filePath = resource_path('js/utils/location.json');
-            if (!file_exists($filePath)) {
+            if (! file_exists($filePath)) {
                 return back();
             }
 

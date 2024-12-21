@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
             'user_id' => User::factory()->create(),
             'title' => 'Mon projet',
             'goal_amount' => rand(500, 5000),
-            'location_id' => Location::factory()->create(),
+            'location' => '1'
         ];
     }
 }

@@ -11,8 +11,7 @@ class CalculSparedAmount
     /**
      * return spared amount
      *
-     * @param Collection<int, Transaction> $transactions
-     * @return integer|float
+     * @param  Collection<int, Transaction>  $transactions
      */
     public function handle(Collection $transactions): int|float
     {

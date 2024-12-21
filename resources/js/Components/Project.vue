@@ -13,7 +13,7 @@
         <p v-if="dateExpired">échéance expirée</p>
         <div v-else class="">
             <input @click="toggleAddFundsModal = true" type="button" value="Ajouter des fonds" class="border p-2 bg-blue-400">
-            <input @click="toggleRemoveFundsModal = true" type="button" value="Retirer des fonds" class="border p-2 bg-blue-400">
+            <input v-if="spared > 0" @click="toggleRemoveFundsModal = true" type="button" value="Retirer des fonds" class="border p-2 bg-blue-400">
         </div>
     </article>
     
