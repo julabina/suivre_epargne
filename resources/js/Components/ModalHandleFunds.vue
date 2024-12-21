@@ -2,12 +2,13 @@
     <div class="modal-container">
         <div class="modal">
             <input type="button" value="X" @click="toggle">
-            <h3>Ajoute des fonds au projet</h3>
+            <h3>{{ type === "deposit" ? "Ajouter" : "Retirer" }} des fonds au projet</h3>
             <p>{{ project.title }}</p>
             <p>{{ sparedValue }}/{{ project.goal_amount }}</p>
             <form @submit.prevent="submit">
                 <div class="">
-                    <label for="">Combien souhaitez vous mettre de coté</label>
+                    <label v-if="type === 'deposit'" for="">Combien souhaitez vous mettre de coté</label>
+                    <label v-else for="">Combien souhaitez vous retirer</label>
                     <input v-model="form.amount" type="number" name="" id="" :max="max">
                     <span v-if="toggleAmountError">Vous ne pouvez pas mettre 0</span>
                 </div>
@@ -20,7 +21,7 @@
                     <textarea v-model="form.comment" name="" id=""></textarea>
                 </div>
                 <div class="">
-                    <input type="submit" value="Ajouter" class="btn-primary">
+                    <input type="submit" :value="type === 'deposit' ? 'Ajouter' : 'Retirer'" class="btn-primary">
                 </div>
             </form>
         </div>
@@ -37,7 +38,8 @@
     const props = defineProps({
         toggle: Function,
         project: Object,
-        sparedValue: Number
+        sparedValue: Number,
+        type: String
     });
 
     const max = ref(0);
@@ -58,7 +60,11 @@
     const $v = useVuelidate(rules, form);
 
     onMounted(() => {
-        max.value = props.project.goal_amount - props.sparedValue;
+        if (props.type === "deposit") {
+            max.value = props.project.goal_amount - props.sparedValue;
+        } else {
+            max.value = props.sparedValue;
+        }
     });
 
     const submit = async () => {
@@ -69,9 +75,10 @@
             router.visit(route('transaction.add', { id: props.project.id }), {
                 method: "post",
                 data: {
-                    form
+                    form,
+                    type: props.type
                 }
-            })
+            });
         } else {
             form.amount = 1;
             toggleAmountError.value = true

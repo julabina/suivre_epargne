@@ -16,7 +16,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'form.title' => ['required', 'string', 'max:255'],
             'form.description' => ['nullable', 'string', 'max:255'],
-            'form.amountGoal' => ['numeric', 'required','min:0'],
+            'form.amountGoal' => ['numeric', 'required', 'min:0'],
             'form.location' => ['string', 'required'],
             'form.customLocation' => ['string', 'nullable', 'max:255'],
             'form.toggleCustomLocation' => ['required', 'boolean'],

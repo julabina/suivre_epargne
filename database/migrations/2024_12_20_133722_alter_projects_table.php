@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('location')->after('deadline');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */

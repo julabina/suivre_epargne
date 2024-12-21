@@ -6,7 +6,7 @@
         </div>
         <p>{{ spared }}/{{ data.goal_amount }}</p>
         <div class="w-full h-5 bg-blue-100 overflow-hidden relative">
-            <p class="text-center absolute mx-auto">{{ percent }}%</p>
+            <p class="text-center absolute">{{ percent }}%</p>
             <div class="h-full bg-green-600" :style="{ width: percent + '%' }">
             </div>
         </div>
@@ -17,14 +17,13 @@
         </div>
     </article>
     
-    <ModalAddFunds v-if="toggleAddFundsModal" :toggle="() => toggleAddFundsModal = false" :project="data" :sparedValue="spared"/>
-    <ModalRemoveFunds v-if="toggleRemoveFundsModal" :toggle="() => toggleRemoveFundsModal = false"/>
+    <ModalHandleFunds v-if="toggleAddFundsModal" :toggle="() => toggleAddFundsModal = false" :project="data" :sparedValue="spared" type="deposit"/>
+    <ModalHandleFunds v-if="toggleRemoveFundsModal" :toggle="() => toggleRemoveFundsModal = false" :project="data" :sparedValue="spared" type="withdrawal"/>
 </template>
 
 <script setup>
     import { onMounted, ref } from 'vue';
-    import ModalAddFunds from '@/Components/ModalAddFunds.vue';
-    import ModalRemoveFunds from '@/Components/ModalRemoveFunds.vue';
+    import ModalHandleFunds from '@/Components/ModalHandleFunds.vue';
 
     const props = defineProps({
         data: Object
