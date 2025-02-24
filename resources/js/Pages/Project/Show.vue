@@ -11,6 +11,12 @@
         </template>
 
         <section>
+            <div class="">
+                <Link :href="route('project.modify', { 'id' : project.id })">
+                    <button class="">Modifier</button>
+                </Link>
+                <button @click="toggleDeleteModal = true" class="">Supprimer</button>
+            </div>
             <div class="flex">
                 <div>
                     <h1>{{ project.title }}</h1>
@@ -35,12 +41,23 @@
             <h2>Liste des transactions</h2>
             <Transaction v-for="(transaction, ind) in project.transactions" :key="'transaction' + ind" :transaction="transaction"/>
         </section>
+
+        <div v-if="toggleDeleteModal" class="modal-container">
+            <div class="modal">
+                <h2>Voulez vous supprimer {{ project.title }}</h2>
+                <p class="text-sm text-red-600">Cette action est définitive</p>
+                <div class="flex">
+                    <button @click="deleteProject" class="">Oui</button>
+                    <button @click="toggleDeleteModal = false" class="">Non</button>
+                </div>
+            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, router } from '@inertiajs/vue3';
     import { onMounted, ref } from 'vue';
     import Transaction from '@/Components/Transaction.vue';
 
@@ -52,6 +69,7 @@
     const spared = ref(0);
     const deadlineDate = ref(null);
     const dateExpired = ref(false);
+    const toggleDeleteModal = ref(false);
 
     onMounted(() => {
         if (props.project.spared !== null || props.project.spared > 0) {
@@ -72,6 +90,10 @@
         percent.value = ((spared.value/props.project.goal_amount)*100).toFixed(2); 
     });
 
-    console.log(props.project);
+    const deleteProject = () => {
+        router.visit(route('project.delete', {'id': props.project.id}), {
+            method: 'delete'
+        });
+    }
     
 </script>

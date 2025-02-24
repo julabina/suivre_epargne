@@ -82,7 +82,75 @@ class ProjectController extends Controller
         return redirect(route('project.list'));
     }
 
-    public function update(): void {}
+    public function update(int $id, StoreProjectRequest $request): RedirectResponse
+    {
+        $project = Project::find($id);
 
-    public function delete(): void {}
+        if ($project && $project->user_id === $request->user()->id) {
+            $deadlineDate = null;
+
+            if ($request->form['toggleCustomLocation'] && $request->form['customLocation'] !== null && $request->form['customLocation'] !== '') {
+                $loca = $request->form['customLocation'];
+            } else {
+                $filePath = resource_path('js/utils/location.json');
+                if (! file_exists($filePath)) {
+                    return back();
+                }
+
+                $locationContent = file_get_contents($filePath);
+
+                if ($locationContent === false) {
+                    return back();
+                }
+
+                $locationData = json_decode($locationContent, true);
+                $loca = $locationData[$request->form['location']];
+            }
+
+            if ($request->form['toggleDeadline']) {
+                $date = Carbon::createFromFormat('Y-m-d', $request->form['deadline']);
+                if (now()->timestamp < $date->timestamp) {
+                    $deadlineDate = $date;
+                }
+            }
+
+            $project->title = $request->form['title'];
+            $project->description = $request->form['description'];
+            $project->goal_amount = $request->form['amountGoal'];
+            $project->location = $loca;
+            $project->deadline = $deadlineDate;
+
+            $project->save();
+
+            return redirect(route('project.show', ['id' => $project->id]));
+        }
+
+        return back();
+    }
+
+    public function delete(int $id, Request $request): RedirectResponse
+    {
+        $project = Project::find($id);
+
+        if ($project && $project->user_id === $request->user()->id) {
+            $project->delete();
+
+            return redirect(route('project.list'));
+        }
+
+        return back();
+    }
+
+    public function modify(int $id, Request $request): Response|RedirectResponse
+    {
+        $project = Project::find($id);
+
+        if ($project && $project->user_id === $request->user()->id) {
+            return Inertia::render('Project/Update', [
+                'project' => $project,
+            ]);
+        }
+
+        return back();
+    }
 }

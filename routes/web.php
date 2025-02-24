@@ -26,6 +26,7 @@ Route::as('project.')->middleware('auth')->controller(ProjectController::class)-
     Route::get('/', 'list')->middleware('verified')->name('list');
     Route::get('/projet', 'create')->name('create');
     Route::get('/projet/{id}', 'show')->name('show');
+    Route::get('/projet/{id}/update', 'modify')->name('modify');
     Route::post('/project/create', 'store')->name('store');
     Route::put('/project/update/{id}', 'update')->name('update');
     Route::delete('/project/delete/{id}', 'delete')->name('delete');
